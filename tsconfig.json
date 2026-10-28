@@ -1,0 +1,14 @@
+{
+    // configuração do compilador TypeScript para se comunicar com o Node.js
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "strict": true,
+        "skipLibCheck": true,
+        "types": ["node"],
+        "outDir": "dist",
+        "rootDir": "."
+    },
+    "include": ["*.ts"]
+}
