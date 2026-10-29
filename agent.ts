@@ -5,24 +5,26 @@ import { createAgent } from 'langchain';
 import readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 
-import { listarArquivos, lerArquivos } from './tool.js';
+import { listarArquivos, lerArquivos, escreverArquivo } from './tool.js';
+
+import { mcps } from './mcp.js'
+
+const mcp_tools = await mcps.listTools();
 
 const llm = new ChatOpenRouter({
     apiKey: process.env.OPENROUTER_API_KEY2,
-    //model: 'nvidia/nemotron-3.5-super-vl:free'
-    model: 'openai/gpt-6.1-terra',
+    //model: 'nvidia/nemotron-3.5-super-vl:free',
+    //model: 'openai/gpt-6.1-terra',
+    model: 'deepseek/deepseek-v4.1-flash-1017',
     plugins: [{id: 'web', max_result: 5}] // Permite com que o modelo acesse a internet para buscar informações em tempo real, limitado a 5 resultados.
 });
 
 const agent = createAgent({
     model: llm,
     systemPrompt:` 
-    INSTRUÇÃO: Você é um assitente virtual, amigavel
+        INSTRUÇÃO: Você é um assitente virtual, amigavel
     `.trim(),
-    tools: [
-        listarArquivos,
-        lerArquivos
-    ]
+    tools: mcp_tools
 })
 
 type Message = {

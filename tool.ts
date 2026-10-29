@@ -26,3 +26,18 @@ export const lerArquivos = tool(
         })
     }
 )
+
+export const escreverArquivo = tool(
+    async (params) => {
+        fs.writeFileSync(params.path, params.content)
+        return "Arquivo editado com sucesso"
+    },
+    {
+        name: 'EscreverArquivo',
+        description: 'Escrever no arquivo informado',
+        schema: z.object({
+            path: z.string().describe("Caminho do arquivo que será editado"),
+            content: z.string().describe("Informação que será inserida no arquivo")
+        })
+    }
+)
